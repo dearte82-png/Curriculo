@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Currículo - Andréa Francisca Costa Alves</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --primary: #1e3a8a;       /* Azul marinho elegante */
+      --primary-light: #3b82f6; /* Azul destaque */
+      --accent-bg: #eff6ff;     /* Fundo suave azul */
+      --text-main: #0f172a;     /* Quase preto para leitura */
+      --text-muted: #475569;    /* Cinza escuro para detalhes */
+      --bg-page: #f8fafc;       /* Fundo da tela */
+      --card-bg: #ffffff;       /* Fundo do currículo */
+      --border-color: #e2e8f0;  /* Divisórias */
+      --badge-bg: #f1f5f9;
+      --badge-text: #1e293b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background-color: var(--bg-page);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 40px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Barra de ação (botão de impressão) */
+    .action-bar {
+      width: 100%;
+      max-width: 850px;
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 20px;
+    }
+
+    .btn-print {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--primary);
+      color: #ffffff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      transition: all 0.2s ease;
+    }
+
+    .btn-print:hover {
+      background-color: #172554;
+      transform: translateY(-1px);
+    }
+
+    /* Rodapé do currículo com botão de imprimir */
+    .resume-footer {
+      display: flex;
+      justify-content: center;
+      padding: 24px 40px;
+      border-top: 1px solid var(--border-color);
+      background-color: #f8fafc;
+    }
+
+    /* Botão flutuante fixo no canto inferior direito */
+    .floating-print-btn {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: #ffffff;
+      padding: 14px 24px;
+      border: 2px solid #ffffff;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 10px 25px rgba(30, 58, 138, 0.35);
+      z-index: 9999;
+      transition: all 0.25s ease;
+    }
+
+    .floating-print-btn:hover {
+      background: linear-gradient(135deg, #172554, #1d4ed8);
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 14px 28px rgba(30, 58, 138, 0.45);
+    }
+
+    .floating-print-btn svg {
+      width: 20px;
+      height: 20px;
+    }
+
+    /* Container Principal do Currículo */
+    .resume-container {
+      width: 100%;
+      max-width: 850px;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.03);
+      overflow: hidden;
+      border: 1px solid var(--border-color);
+    }
+
+    /* Cabeçalho de Destaque */
+    header.header {
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 60%, #2563eb 100%);
+      color: #ffffff;
+      padding: 48px 40px 36px;
+      text-align: center;
+    }
+
+    header.header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    header.header .subtitle {
+      font-size: 17px;
+      font-weight: 400;
+      color: #93c5fd;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+
+    /* Contatos em cartões/badges */
+    .contact-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px 20px;
+    }
+
+    .contact-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e0f2fe;
+      font-size: 14px;
+      text-decoration: none;
+      background: rgba(255, 255, 255, 0.12);
+      padding: 6px 14px;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      transition: background 0.2s;
+    }
+
+    .contact-item:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    .contact-item svg {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      stroke: #93c5fd;
+    }
+
+    /* Corpo Principal: Estrutura em 2 Colunas */
+    .resume-body {
+      display: grid;
+      grid-template-columns: 1fr 1.6fr;
+      padding: 36px 40px;
+      gap: 40px;
+    }
+
+    /* Títulos de Seções */
+    .section-title {
+      font-size: 17px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--primary);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 2px solid var(--accent-bg);
+      padding-bottom: 6px;
+    }
+
+    .section-title svg {
+      width: 20px;
+      height: 20px;
+      stroke: var(--primary-light);
+    }
+
+    /* Coluna Lateral (Esquerda) */
+    .side-column {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .summary-text {
+      color: var(--text-muted);
+      font-size: 14px;
+      text-align: justify;
+      line-height: 1.65;
+    }
+
+    /* Tags de Competências */
+    .skills-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      list-style: none;
+    }
+
+    .skill-tag {
+      background-color: var(--badge-bg);
+      color: var(--badge-text);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 6px 12px;
+      border-radius: 6px;
+      border: 1px solid #e2e8f0;
+      transition: all 0.2s;
+    }
+
+    .skill-tag:hover {
+      background-color: var(--accent-bg);
+      color: var(--primary);
+      border-color: #bfdbfe;
+    }
+
+    /* Coluna Principal (Direita) */
+    .main-column {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    /* Linha do Tempo / Timeline */
+    .timeline {
+      position: relative;
+      border-left: 2px solid var(--border-color);
+      padding-left: 20px;
+      margin-left: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .timeline-item {
+      position: relative;
+    }
+
+    .timeline-marker {
+      position: absolute;
+      left: -27px;
+      top: 5px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--card-bg);
+      border: 3px solid var(--primary-light);
+    }
+
+    .item-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 4px;
+    }
+
+    .item-title {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .item-period {
+      font-size: 12.5px;
+      font-weight: 600;
+      color: var(--primary);
+      background: var(--accent-bg);
+      padding: 3px 9px;
+      border-radius: 12px;
+    }
+
+    .item-institution {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--primary-light);
+      margin-bottom: 8px;
+    }
+
+    .item-description {
+      font-size: 13.5px;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+
+    .item-description ul {
+      list-style-type: disc;
+      padding-left: 18px;
+      margin-top: 6px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    /* Responsividade para Telas Menores */
+    @media (max-width: 768px) {
+      body {
+        padding: 16px 10px;
+      }
+
+      .resume-body {
+        grid-template-columns: 1fr;
+        padding: 24px 20px;
+        gap: 28px;
+      }
+
+      header.header {
+        padding: 32px 20px 24px;
+      }
+
+      header.header h1 {
+        font-size: 26px;
+      }
+
+      .contact-grid {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .contact-item {
+        justify-content: center;
+      }
+    }
+
+    /* Estilização para Impressão / Salvar PDF */
+    @media print {
+      body {
+        background: transparent;
+        padding: 0;
+      }
+
+      .no-print,
+      .action-bar,
+      .floating-print-btn,
+      .resume-footer {
+        display: none !important;
+      }
+
+      .resume-container {
+        box-shadow: none;
+        border: none;
+        max-width: 100%;
+      }
+
+      header.header {
+        background: #1e3a8a !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .contact-item {
+        color: #ffffff !important;
+        background: rgba(255, 255, 255, 0.15) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .item-period, .skill-tag {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Barra de Ação (Apenas na tela) -->
+  <div class="action-bar">
+    <button class="btn-print" onclick="window.print()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="6 9 6 2 18 2 18 9"></polyline>
+        <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+        <rect x="6" y="14" width="12" height="8"></rect>
+      </svg>
+      Salvar em PDF / Imprimir
+    </button>
+  </div>
+
+  <!-- Cartão do Currículo -->
+  <div class="resume-container">
+    
+    <!-- Cabeçalho Principal -->
+    <header class="header">
+      <h1>Andréa Francisca Costa Alves</h1>
+      <p class="subtitle">Área de Administração & Gestão Comercial</p>
+      
+      <div class="contact-grid">
+        <!-- Localização -->
+        <span class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          Fazenda Grande II, Quadra E, Salvador - BA
+        </span>
+
+        <!-- Telefone / WhatsApp -->
+        <a href="tel:71999437065" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+          (71) 99943-7065
+        </a>
+
+        <!-- E-mail -->
+        <a href="mailto:dea.82@gmail.com" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          dea.82@gmail.com
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://instagram.com/dearteconfeitaria" target="_blank" rel="noopener noreferrer" class="contact-item">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          @dearteconfeitaria
+        </a>
+      </div>
+    </header>
+
+    <!-- Conteúdo em Duas Colunas -->
+    <div class="resume-body">
+
+      <!-- Coluna da Esquerda: Perfil e Habilidades -->
+      <aside class="side-column">
+        
+        <!-- Perfil Profissional -->
+        <section>
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            Perfil
+          </h2>
+          <p class="summary-text">
+            Profissional em formação técnica em Administração com vivência prática no gerenciamento de microempreendimento. Habilidade consolidada em atendimento direto ao público, controle de compras, precificação e organização de fluxos operacionais. Comprometida, comunicativa e motivada a aplicar conhecimentos de gestão e rotinas administrativas.
+          </p>
+        </section>
+
+        <!-- Competências e Habilidades -->
+        <section>
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+            Habilidades
+          </h2>
+          <ul class="skills-list">
+            <li class="skill-tag">Rotinas Administrativas</li>
+            <li class="skill-tag">Atendimento ao Cliente</li>
+            <li class="skill-tag">Fluxo de Caixa</li>
+            <li class="skill-tag">Gestão de Pedidos</li>
+            <li class="skill-tag">Controle de Estoque</li>
+            <li class="skill-tag">Precificação de Produtos</li>
+            <li class="skill-tag">Organização e Planejamento</li>
+            <li class="skill-tag">Comunicação e Relacionamento</li>
+            <li class="skill-tag">Proatividade</li>
+          </ul>
+        </section>
+
+      </aside>
+
+      <!-- Coluna da Direita: Formação e Experiência -->
+      <main class="main-column">
+
+        <!-- Experiência Profissional -->
+        <section>
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+              <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+            </svg>
+            Experiência
+          </h2>
+
+          <div class="timeline">
+            <!-- Experiência: Confeitaria -->
+            <div class="timeline-item">
+              <span class="timeline-marker"></span>
+              <div class="item-header">
+                <h3 class="item-title">Microempreendedora</h3>
+                <span class="item-period">Atuação Contínua</span>
+              </div>
+              <div class="item-institution">Confeitaria Artesanal • <a href="https://instagram.com/dearteconfeitaria" target="_blank" rel="noopener noreferrer" style="color: inherit; text-decoration: underline;">@dearteconfeitaria</a></div>
+              <div class="item-description">
+                <ul>
+                  <li>Planejamento e gestão de pedidos, garantindo cumprimento de prazos e alto padrão de satisfação.</li>
+                  <li>Atendimento personalizado ao cliente, negociação e pós-venda.</li>
+                  <li>Controle de custos de produção, compras de insumos e precificação estratégica.</li>
+                  <li>Gestão financeira simplificada com controle de receitas e despesas.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Formação Acadêmica -->
+        <section>
+          <h2 class="section-title">
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+            Formação
+          </h2>
+
+          <div class="timeline">
+            <!-- Curso Técnico -->
+            <div class="timeline-item">
+              <span class="timeline-marker"></span>
+              <div class="item-header">
+                <h3 class="item-title">Técnico em Administração</h3>
+                <span class="item-period">Em andamento (2º Semestre)</span>
+              </div>
+              <div class="item-institution">SENAI - Serviço Nacional de Aprendizagem Industrial</div>
+              <div class="item-description">
+                Foco no desenvolvimento de competências em processos administrativos, gestão de pessoas, logística, finanças e suporte organizacional.
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+
+    </div>
+
+    <!-- Rodapé com Botão de Imprimir -->
+    <div class="resume-footer no-print">
+      <button class="btn-print" onclick="window.print()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 6 2 18 2 18 9"></polyline>
+          <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+          <rect x="6" y="14" width="12" height="8"></rect>
+        </svg>
+        Imprimir Currículo
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Botão Flutuante de Imprimir (Fixo na Tela) -->
+  <button class="floating-print-btn no-print" onclick="window.print()" title="Imprimir Currículo">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 6 2 18 2 18 9"></polyline>
+      <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+      <rect x="6" y="14" width="12" height="8"></rect>
+    </svg>
+    <span>Imprimir Currículo</span>
+  </button>
+
+</body>
+</html>
